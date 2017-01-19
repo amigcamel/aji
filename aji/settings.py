@@ -92,7 +92,7 @@ USE_MODELTRANSLATION = False
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', 'aji.tw']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -101,18 +101,19 @@ ALLOWED_HOSTS = ['localhost']
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Taipei'
 
 # If you set this to True, Django will use timezone-aware datetimes.
 USE_TZ = True
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = "en"
+LANGUAGE_CODE = "zh_tw"
 
 # Supported languages
 LANGUAGES = (
     ('en', _('English')),
+    ('zh_tw', _('繁體中文')),
 )
 
 # A boolean that turns on/off debug mode. When set to ``True``, stack traces
@@ -127,7 +128,7 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = False
+USE_I18N = True
 
 AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
 
@@ -349,3 +350,10 @@ RICHTEXT_FILTERS = (
 PAGEDOWN_MARKDOWN_EXTENSIONS = (
     'extra',
 )
+
+# Django Email settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ""
