@@ -345,4 +345,6 @@ RICHTEXT_FILTERS = (
     # 'mezzanine_pagedown.filters.codehilite',
     'mezzanine_pagedown.filters.custom',
 )
-# PAGEDOWN_MARKDOWN_EXTENSIONS = ('extra', 'codehilite', 'toc')
+PAGEDOWN_MARKDOWN_EXTENSIONS = (
+    'extra',
+)
