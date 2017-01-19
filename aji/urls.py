@@ -95,7 +95,7 @@ urlpatterns += [
     # need to use the ``SITE_PREFIX`` setting as well.
 
     # ("^%s/" % settings.SITE_PREFIX, include("mezzanine.urls"))
-
+    url(r'^contact', 'contact.views.contact', name='contact'),
 ]
 
 # Adds ``STATIC_URL`` to the context of error pages, so that error

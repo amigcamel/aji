@@ -216,6 +216,7 @@ TEMPLATES = [
             ],
             "builtins": [
                 "mezzanine.template.loader_tags",
+                "django.contrib.staticfiles.templatetags.staticfiles",
             ],
         },
     },
