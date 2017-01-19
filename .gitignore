@@ -71,7 +71,7 @@ coverage.xml
 
 # Django stuff:
 *.log
-local_settings.py
+# local_settings.py
 
 # Flask stuff:
 instance/
@@ -113,6 +113,7 @@ ENV/
 ### Django ###
 *.pyc
 db.sqlite3
+dev.db
 media
 
 # End of https://www.gitignore.io/api/vim,python,django
