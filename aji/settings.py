@@ -5,6 +5,8 @@ import os
 from django import VERSION as DJANGO_VERSION
 from django.utils.translation import ugettext_lazy as _
 
+import dj_database_url
+
 
 ######################
 # MEZZANINE SETTINGS #
@@ -144,7 +146,7 @@ FILE_UPLOAD_PERMISSIONS = 0o644
 DATABASES = {
     "default": {
         # Add "postgresql_psycopg2", "mysql", "sqlite3" or "oracle".
-        "ENGINE": "django.db.backends.",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         # DB name or path to database file if using sqlite3.
         "NAME": "",
         # Not used with sqlite3.
@@ -157,6 +159,11 @@ DATABASES = {
         "PORT": "",
     }
 }
+
+# Detecting Heroku's environment:
+# http://stackoverflow.com/a/9392576/1105489
+if 'DYNO' in os.environ.keys():
+    DATABASES['default'] = dj_database_url.config()
 
 
 #########
@@ -357,10 +364,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ""
-
-# heroku settings
-# Update database configuration with $DATABASE_URL.
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
-
