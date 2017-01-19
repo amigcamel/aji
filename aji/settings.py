@@ -249,6 +249,7 @@ INSTALLED_APPS = (
     "mezzanine.twitter",
     # "mezzanine.accounts",
     # "mezzanine.mobile",
+    "mezzanine_pagedown",
 )
 
 # List of middleware classes to use. Order is important; in the request phase,
@@ -337,3 +338,11 @@ else:
 
 SITE_TITLE = '宅吉便'
 SITE_TAGLINE = '今年一定吉'
+RICHTEXT_WIDGET_CLASS = 'mezzanine_pagedown.widgets.PageDownWidget'
+RICHTEXT_FILTER_LEVEL = 3
+RICHTEXT_FILTERS = (
+    # 'mezzanine_pagedown.filters.extra',
+    # 'mezzanine_pagedown.filters.codehilite',
+    'mezzanine_pagedown.filters.custom',
+)
+# PAGEDOWN_MARKDOWN_EXTENSIONS = ('extra', 'codehilite', 'toc')
