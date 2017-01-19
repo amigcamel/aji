@@ -264,14 +264,14 @@
     <!-- Main Content -->
     <div id="main_content" class="container">
         <div class="row">
-        {% if blog_recent_posts %}
+        {% if request.path == '/' or request.path|slice:":5" == '/blog' %}
             <div class="col-lg-9">
         {% else %}
             <div class="col-lg-8 col-lg-offset-2">
         {% endif %}
                 {% block main %}{% endblock main %}
             </div>
-            {% if blog_recent_posts %}
+            {% if request.path == '/' or request.path|slice:":5" == '/blog' %}
                 <div class="col-md-3 right">
                     <div class="panel panel-default">
                         <div class="panel-body">
