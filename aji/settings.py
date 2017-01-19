@@ -166,8 +166,9 @@ DATABASES = {
 
 # Detecting Heroku's environment:
 # http://stackoverflow.com/a/9392576/1105489
-if 'DYNO' in os.environ.keys():
-    DATABASES['default'] = dj_database_url.config()
+_db_config = dj_database_url.config()
+if _db_config:
+    DATABASES['default'] = _db_config
 
 
 #########
