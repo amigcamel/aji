@@ -264,11 +264,17 @@
     <!-- Main Content -->
     <div id="main_content" class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-9">
                 {% block main %}{% endblock main %}
             </div>
-            {% block sidebar_right %}
-            {% endblock sidebar_right %}
+            <div class="col-md-3 right">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {% block right_panel %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
