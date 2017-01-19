@@ -5,8 +5,6 @@ import os
 from django import VERSION as DJANGO_VERSION
 from django.utils.translation import ugettext_lazy as _
 
-import dj_database_url
-
 
 ######################
 # MEZZANINE SETTINGS #
@@ -163,12 +161,6 @@ DATABASES = {
         "PORT": "",
     }
 }
-
-# Detecting Heroku's environment:
-# http://stackoverflow.com/a/9392576/1105489
-_db_config = dj_database_url.config()
-if _db_config:
-    DATABASES['default'] = _db_config
 
 
 #########
