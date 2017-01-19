@@ -2,3 +2,4 @@ Django==1.8.17
 Mezzanine==4.2.2
 mezzanine-pagedown==1.0
 gunicorn==19.6.0
+dj-database-url==0.4.2
