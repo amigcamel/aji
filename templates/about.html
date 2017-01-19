@@ -1,0 +1,307 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block cover_img_path %}
+<header class="intro-header" style="background-image: url('{% static "img/about-bg.jpg" %}')">
+{% endblock cover_img_path %}
+
+{% block extra_head %}
+<style type="text/css">
+.dialog {
+    position:relative;
+    padding:15px;
+    margin:1em 0 3em;
+    color:#000;
+    background:#FFF380;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+}
+.dialog:after {
+    content:"";
+    position:absolute;
+    bottom:-15px;
+    left:50px;
+    border-width:15px 15px 0;
+    border-style:solid;
+    border-color:#FFF380 transparent;
+    display:block;
+    width:0;
+}
+@media screen and (min-width: 1200px) {
+    .dialog.triangle {
+        margin-left:50px;
+        background:#FFF380;
+    }
+    .dialog.triangle:after {
+        top:16px;
+        left:-20px;
+        bottom:auto;
+        border-width:10px 20px 10px 0;
+        border-color:transparent #FFF380;
+    }
+}
+
+@media screen and (max-width: 1199px) {
+    .dialog.triangle {
+        background:#FFF380;
+    }
+    .dialog.triangle:after {
+        top:-15px;
+        right:30px;
+        bottom:auto;
+        left:auto;
+        border-width:0 15px 15px;
+        border-color:#FFF380 transparent;
+    }
+}
+
+img.about-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+}
+</style>
+{% endblock extra_head %}
+
+{% block main %}
+<div class="row">
+    <div class="col-lg-3">
+        <div style="text-align:right">
+            <img src="{% static 'img/me.jpg' %}" class="about-img">
+        </div>
+    </div>
+    <div class="col-lg-9" style="font-size: 14px;">
+    <p class="dialog triangle">
+    Bonjour, 我是阿吉！我畢業於臺灣大學語言學研究所，曾在法國Aix Marseille Université留學一年，興趣為自然語言處理與大數據分析。我是一名程式愛好者，我相信寫程式可以讓世界變得更美好。
+    <br>
+    BTW，我同時也是個花式紙牌及魔術愛好者，曾經當過很業餘的魔術師。
+    </p>
+
+    </div>
+</div>
+<br>
+<div id="dbexp" style="height: 100%; margin: 0 auto"></div>
+<div id="osexp" style="height: 100%; margin: 0 auto"></div>
+
+
+{% endblock main %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$('.navbar-custom .nav li a,.navbar-custom .navbar-brand').css('color', 'inherit');
+</script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script type="text/javascript">
+$(function () {
+
+    var colors = Highcharts.getOptions().colors,
+        categories = ['SQL', 'NoSQL'],
+        data = [{
+            y: 45,
+            color: colors[0],
+            drilldown: {
+                name: 'SQL',
+                categories: ['MySQL', 'SQLite', 'SQL Server', 'PostgresSQL'],
+                data: [15, 15, 10, 5],
+                color: colors[0]
+            }
+        }, {
+            y: 55,
+            color: colors[1],
+            drilldown: {
+                name: 'NoSQL',
+                categories: ['MongoDB', 'Redis', 'rlite', 'UnQLite'],
+                data: [20, 10, 10, 15],
+                color: colors[1]
+            }
+        }],
+        browserData = [],
+        versionsData = [],
+        i,
+        j,
+        dataLen = data.length,
+        drillDataLen,
+        brightness;
+
+    // Build the data arrays
+    for (i = 0; i < dataLen; i += 1) {
+
+        // add browser data
+        browserData.push({
+            name: categories[i],
+            y: data[i].y,
+            color: data[i].color
+        });
+
+        // add version data
+        drillDataLen = data[i].drilldown.data.length;
+        for (j = 0; j < drillDataLen; j += 1) {
+            brightness = 0.2 - (j / drillDataLen) / 5;
+            versionsData.push({
+                name: data[i].drilldown.categories[j],
+                y: data[i].drilldown.data[j],
+                color: Highcharts.Color(data[i].color).brighten(brightness).get()
+            });
+        }
+    }
+
+    // Create the chart
+    $('#dbexp').highcharts({
+        credits: false,
+        exporting: { enabled: false }, 
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: '資料庫使用經驗'
+        },
+        subtitle: {
+            text: ''
+        },
+        yAxis: {
+            title: {
+                text: ''
+            }
+        },
+        plotOptions: {
+            pie: {
+                shadow: false,
+                center: ['50%', '50%']
+            }
+        },
+        tooltip: {
+            valueSuffix: '%'
+        },
+        series: [{
+            name: '使用經驗',
+            data: browserData,
+            size: '60%',
+            dataLabels: {
+                formatter: function () {
+                    return this.y > 5 ? this.point.name : null;
+                },
+                color: 'white',
+                distance: -30
+            }
+        }, {
+            name: '使用經驗',
+            data: versionsData,
+            size: '80%',
+            innerSize: '60%',
+            dataLabels: {
+                formatter: function () {
+                    // display only if larger than 1
+                    return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%' : null;
+                }
+            }
+        }]
+    });
+
+    var colors = Highcharts.getOptions().colors,
+        categories = ['Linux', 'Windows'],
+        data = [{
+            y: 85,
+            color: colors[2],
+            drilldown: {
+                name: 'Linux',
+                categories: ['OS X', 'Ubuntu', 'Lubuntu'],
+                data: [40, 35, 10],
+                color: colors[2]
+            }
+        }, {
+            y: 15,
+            color: colors[3],
+            drilldown: {
+                name: 'Windows',
+                categories: ['Windows 7'],
+                data: [15],
+                color: colors[3]
+            }
+        }],
+        browserData = [],
+        versionsData = [],
+        i,
+        j,
+        dataLen = data.length,
+        drillDataLen,
+        brightness;
+
+    // Build the data arrays
+    for (i = 0; i < dataLen; i += 1) {
+
+        // add browser data
+        browserData.push({
+            name: categories[i],
+            y: data[i].y,
+            color: data[i].color
+        });
+
+        // add version data
+        drillDataLen = data[i].drilldown.data.length;
+        for (j = 0; j < drillDataLen; j += 1) {
+            brightness = 0.2 - (j / drillDataLen) / 5;
+            versionsData.push({
+                name: data[i].drilldown.categories[j],
+                y: data[i].drilldown.data[j],
+                color: Highcharts.Color(data[i].color).brighten(brightness).get()
+            });
+        }
+    }
+
+    // Create the chart
+    $('#osexp').highcharts({
+        credits: false,
+        exporting: { enabled: false }, 
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: '作業系統使用經驗'
+        },
+        subtitle: {
+            text: ''
+        },
+        yAxis: {
+            title: {
+                text: ''
+            }
+        },
+        plotOptions: {
+            pie: {
+                shadow: false,
+                center: ['50%', '50%']
+            }
+        },
+        tooltip: {
+            valueSuffix: '%'
+        },
+        series: [{
+            name: '使用經驗',
+            data: browserData,
+            size: '60%',
+            dataLabels: {
+                formatter: function () {
+                    return this.y > 5 ? this.point.name : null;
+                },
+                color: 'white',
+                distance: -30
+            }
+        }, {
+            name: '使用經驗',
+            data: versionsData,
+            size: '80%',
+            innerSize: '60%',
+            dataLabels: {
+                formatter: function () {
+                    // display only if larger than 1
+                    return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%' : null;
+                }
+            }
+        }]
+    });
+
+});
+</script>
+{% endblock %}
