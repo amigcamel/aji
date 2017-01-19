@@ -264,17 +264,23 @@
     <!-- Main Content -->
     <div id="main_content" class="container">
         <div class="row">
+        {% if blog_recent_posts %}
             <div class="col-lg-9">
+        {% else %}
+            <div class="col-lg-8 col-lg-offset-2">
+        {% endif %}
                 {% block main %}{% endblock main %}
             </div>
-            <div class="col-md-3 right">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        {% block right_panel %}
-                        {% endblock %}
+            {% if blog_recent_posts %}
+                <div class="col-md-3 right">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {% block right_panel %}
+                            {% endblock %}
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 

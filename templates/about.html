@@ -61,6 +61,14 @@ img.about-img {
     height: 80px;
     border-radius: 50px;
 }
+.navbar-brand img {
+    filter: invert(100%);
+}
+.navbar-custom .nav li a,
+.navbar-custom .nav li a:hover,
+.navbar-custom .navbar-brand {
+    color: inherit;
+}
 </style>
 {% endblock extra_head %}
 
@@ -88,9 +96,6 @@ img.about-img {
 {% endblock main %}
 
 {% block extra_js %}
-<script type="text/javascript">
-$('.navbar-custom .nav li a,.navbar-custom .navbar-brand').css('color', 'inherit');
-</script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
