@@ -95,6 +95,7 @@ USE_MODELTRANSLATION = False
 ALLOWED_HOSTS = [
     'localhost',
     'aji.tw',
+    'www.aji.tw',
     'ajitw.herokuapp.com',
 ]
 
