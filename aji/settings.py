@@ -97,6 +97,7 @@ ALLOWED_HOSTS = [
     'aji.tw',
     'www.aji.tw',
     'ajitw.herokuapp.com',
+    '52.27.118.30',
 ]
 
 # Local time zone for this installation. Choices can be found here:

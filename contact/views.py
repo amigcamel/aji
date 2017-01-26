@@ -3,6 +3,8 @@
 from datetime import datetime
 
 from django.shortcuts import render_to_response, RequestContext, HttpResponse
+import requests
+
 from .gmail import send_mail
 
 EMAIL_TEMPLATE = '''
@@ -18,6 +20,21 @@ EMAIL_TEMPLATE = '''
 def contact(request):
     """Contact form handler."""
     if request.method == 'POST':
+        g = request.POST.get('g')
+        resp = requests.post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            {
+                'secret': '6LewJxMUAAAAALFRHD-2Fy1gqv-_ocr4ZpxitJcg',
+                'response': g
+            }
+        )
+        assert resp.status_code == 200
+        g_response = resp.json()
+        print('------------------------------------')
+        print(g_response)
+        print('------------------------------------')
+        if not resp.json()['success']:
+            return HttpResponse('error', status=401)
         from_email = request.POST['email']
         message = request.POST['message']
         name = request.POST['name']

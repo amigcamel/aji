@@ -34,6 +34,7 @@ $(function() {
                     // phone: phone,
                     email: email,
                     message: message,
+                    g: $('.g-recaptcha-response').val(), 
                     csrfmiddlewaretoken: csrf_token,
                 },
                 cache: false,
@@ -50,15 +51,23 @@ $(function() {
                     //clear all fields
                     $('#contactForm').trigger("reset");
                 },
-                error: function() {
+                error: function(xhr, status) {
+                    var message;
+                    if (xhr.status == 401) {
+                        message = '請勾選以上驗證圖形'; 
+                    } else {
+                        message = '內部伺服器錯誤，請洽管理員';
+                    }
                     // Fail message
                     $('#success').html("<div class='alert alert-danger'>");
                     $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
                         .append("</button>");
-                    $('#success > .alert-danger').append("<strong>Sorry " + firstName + ", it seems that my mail server is not responding. Please try again later!");
+                    $('#success > .alert-danger').append("<strong>" + message + "</strong>");
                     $('#success > .alert-danger').append('</div>');
                     //clear all fields
-                    $('#contactForm').trigger("reset");
+                    if (xhr.status != 401) {
+                        $('#contactForm').trigger("reset");
+                    }
                 },
             })
         },
