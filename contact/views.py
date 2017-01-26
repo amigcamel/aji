@@ -3,14 +3,14 @@
 from datetime import datetime
 
 from django.shortcuts import render_to_response, RequestContext, HttpResponse
-from django.core.mail import send_mail
+from .gmail import send_mail
 
 EMAIL_TEMPLATE = '''
-[ 注意！這是一封由AjiBlog「自動寄發」的郵件 ]
-+ 發送時間： {sent_time}
-+ 發信人：   {sender}
-+ Email：   {from_email}
-+ 訊息內容：
+[ aji.tw 聯絡信 ]
+• 發送時間： {sent_time}
+• 發信人：   {sender}
+• Email：   {from_email}
+• 訊息內容：
 {message}
 '''
 
@@ -21,21 +21,17 @@ def contact(request):
         from_email = request.POST['email']
         message = request.POST['message']
         name = request.POST['name']
-        now = datetime.now().strftime('%Y年%m月%d號 %H點%M分%S秒')
+        now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         mail_content = EMAIL_TEMPLATE.format(
             sent_time=now,
             sender=name,
             from_email=from_email,
             message=message,
         )
-        subject = 'AjiBlog 聯絡訊息'
-        to_mail = ['amigcamel@gmail.com']
         send_mail(
-            subject=subject,
-            message=mail_content,
-            from_email=from_email,
-            recipient_list=to_mail,
-            fail_silently=False,
+            to='amigcamel@gmail.com',
+            subject='aji.tw 聯絡訊息',
+            message_text=mail_content,
         )
         return HttpResponse('ok')
     else:
