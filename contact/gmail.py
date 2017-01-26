@@ -42,8 +42,7 @@ def get_credentials():
             GMAIL_API.get('SCOPES'),
         )
         flow.user_agent = GMAIL_API.get('APPLICATION_NAME')
-        flags = tools.parse_args()
-        flags.noauth_local_webserver = True
+        flags = tools.argparser.parse_args(['--noauth_local_webserver'])
         credentials = tools.run_flow(flow, store, flags)
         print('Storing credentials to ' + credential_path)
     return credentials
