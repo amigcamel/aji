@@ -98,6 +98,7 @@ urlpatterns += [
     # ("^%s/" % settings.SITE_PREFIX, include("mezzanine.urls"))
     url(r'^contact', 'contact.views.contact', name='contact'),
     url(r'^about', TemplateView.as_view(template_name="about.html"), name='about'),
+    url(r'^slide', TemplateView.as_view(template_name="slide.html"), name='slide'),
 ]
 
 # Adds ``STATIC_URL`` to the context of error pages, so that error
