@@ -6,16 +6,38 @@ Slide
 {% endblock meta_title %}
 
 {% block cover_img_path %}
-<header class="intro-header" style="background-image: url('{% static "img/about-bg.jpg" %}')">
+<header class="intro-header" style="background-image: url('{% static "img/slide-bg.jpg" %}')">
 {% endblock cover_img_path %}
 
 {% block extra_head %}
-
+<style>
+img.about-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+}
+.navbar-brand img {
+    filter: invert(100%);
+}
+.navbar-custom .nav li a,
+.navbar-custom .nav li a:hover,
+.navbar-custom .navbar-brand {
+    color: inherit;
+}
+</style>
 {% endblock extra_head %}
 
 {% block main %}
 <div class="row">
-
+    <div class="col-md-12">
+        <h2>以下是我分享過的一些簡報</h2>
+        <br>
+        <ul>
+            <li>
+                <a href="/slides/mezzanine" target="_blank">Mezzanine + Heroku: 20分鐘迅速打造個人部落格</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 
