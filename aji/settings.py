@@ -348,16 +348,14 @@ else:
 
 SITE_TITLE = '宅吉便'
 SITE_TAGLINE = '今年一定吉'
+
+# settings for mezzanine-pagedown
 RICHTEXT_WIDGET_CLASS = 'mezzanine_pagedown.widgets.PageDownWidget'
+PAGEDOWN_SERVER_SIDE_PREVIEW = True
 RICHTEXT_FILTER_LEVEL = 3
-RICHTEXT_FILTERS = (
-    # 'mezzanine_pagedown.filters.extra',
-    # 'mezzanine_pagedown.filters.codehilite',
-    'mezzanine_pagedown.filters.custom',
-)
-PAGEDOWN_MARKDOWN_EXTENSIONS = (
-    'extra',
-)
+RICHTEXT_FILTERS = [
+    'mezzanine_pagedown.filters.extra'
+]
 
 # Django Email settings
 EMAIL_HOST = 'smtp.gmail.com'
