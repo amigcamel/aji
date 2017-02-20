@@ -42,6 +42,10 @@
        }(document, 'script', 'facebook-jssdk'));
     </script>
 
+    <h1>{{ blog_post.title }}</h1>
+
+    <br>
+
     {% block blog_post_detail_postedby %}
         <h6 class="post-meta">
             {{ blog_post.publish_date | date }}
