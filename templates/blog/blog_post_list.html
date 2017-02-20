@@ -171,6 +171,9 @@
                     {% endif %}
                     {% endcomment %}
                 </p>
+                {% if not forloop.last %}
+                <hr>
+                {% endif %}
             </div>
         {% endblock blog_post_list_post_links %}
     {% endfor %}
