@@ -71,6 +71,7 @@
         {% endeditable %}
     {% endblock %}
 
+    {% comment %}
     {% block blog_post_detail_keywords %}
         {% keywords_for blog_post as tags %}
         {% if tags %}
@@ -84,6 +85,7 @@
             {% endspaceless %}
         {% endif %}
     {% endblock blog_post_detail_keywords %}
+    {% endcomment %}
 
     <br>
     <div class="fb-like"
