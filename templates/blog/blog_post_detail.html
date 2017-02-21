@@ -42,48 +42,18 @@
        }(document, 'script', 'facebook-jssdk'));
     </script>
 
-    <h1>{{ blog_post.title }}</h1>
-
-    <br>
-
     {% block blog_post_detail_postedby %}
         <h6 class="post-meta">
             {{ blog_post.publish_date | date }}
         </h6>
     {% endblock blog_post_detail_postedby %}
 
-    {% comment %}
-    {% block blog_post_detail_postedby %}
-        {% editable blog_post.publish_date %}
-        <h6 class="post-meta">
-            {% trans "Posted by" %}:
-            {% with blog_post.user as author %}
-                <a href="{% url "blog_post_list_author" author %}">{{ author.get_full_name|default:author.username }}</a>
-            {% endwith %}
-            {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago
-            {% endblocktrans %}
-        </h6>
-        {% endeditable %}
-    {% endblock blog_post_detail_postedby %}
-    {% endcomment %}
+    <h1>{{ blog_post.title }}</h1>
+    {% for category in blog_post.categories.all %}
+    <span class="label label-primary">{{ category.title  }}</span>
+    {% endfor %}
 
-    {% comment %}
-    {% block blog_post_detail_commentlink %}
-        <p>
-            {% if blog_post.allow_comments %}
-                {% if settings.COMMENTS_DISQUS_SHORTNAME %}
-                    (<a href="{{ blog_post.get_absolute_url }}#disqus_thread"
-                        data-disqus-identifier="{% disqus_id_for blog_post %}">{% spaceless %}
-                        {% trans "Comments" %}
-                    {% endspaceless %}</a>)
-                {% else %}(<a href="#comments">{% spaceless %}
-                    {% blocktrans count comments_count=blog_post.comments_count %}{{ comments_count }} comment{% plural %}{{ comments_count }} comments{% endblocktrans %}
-                    {% endspaceless %}</a>)
-                {% endif %}
-            {% endif %}
-        </p>
-    {% endblock blog_post_detail_commentlink %}
-    {% endcomment %}
+    <br>
 
     {% block blog_post_detail_featured_image %}
         {% if settings.BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
@@ -115,21 +85,22 @@
         {% endif %}
     {% endblock blog_post_detail_keywords %}
 
-    {% comment %}
-    {% block blog_post_detail_rating %}
-        <div class="panel panel-default rating">
-            <div class="panel-body">
-            {% rating_for blog_post %}
-            </div>
-        </div>
-    {% endblock blog_post_detail_rating %}
+    <div class="fb-like"
+	    data-href="http://aji.tw/{{blog_post.slug}}"
+        data-layout="button_count"
+        data-action="like"
+        data-size="large"
+        data-show-faces="true"
+        data-share="true">
+    </div>
 
-    {% block blog_post_detail_sharebuttons %}
-        {% set_short_url_for blog_post %}
-        <a class="btn btn-sm share-twitter" target="_blank" href="https://twitter.com/intent/tweet?url={{ blog_post.short_url|urlencode }}&amp;text={{ blog_post.title|urlencode }}">{% trans "Share on Twitter" %}</a>
-        <a class="btn btn-sm share-facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">{% trans "Share on Facebook" %}</a>
-    {% endblock blog_post_detail_sharebuttons %}
-    {% endcomment %}
+    <div class="fb-comments"
+        data-href="http://aji.tw/"
+        data-numposts="5"
+        width="100%">
+    </div>
+
+
 
     {% block blog_post_previous_next %}
         <ul class="pager">
@@ -162,11 +133,5 @@
             </div>
         {% endif %}
     {% endblock blog_post_detail_related_posts %}
-
-<br><br>
-<iframe src="https://www.facebook.com/plugins/like.php?href=http://aji.tw/{{blog_post.slug}}&send=false&layout=button_count&show_faces=true&action=like&colorscheme=light&font&height=21&appId=401883116500986" scrolling="no" frameborder="0" style="border:none; overflow:hidden" allowTransparency="true"></iframe>
-<div id="fb-root">
-    <div class="fb-comments" data-href="http://aji.tw/" data-numposts="5" data-order-by="reverse_time"></div>
-</div>
 
 {% endblock main %}
