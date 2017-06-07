@@ -98,7 +98,7 @@
     </div>
 
     <div class="fb-comments"
-        data-href="{{ request.path }}"
+        data-href="{{ request.build_absolute_uri }}{{ object.get_absolute_url }}"
         data-numposts="10"
         width="100%">
     </div>
