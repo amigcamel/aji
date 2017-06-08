@@ -5,13 +5,15 @@
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
-    <meta name="description" content="{% block meta_description %}{% endblock %}">
+    <meta name="keyoords" content="{% block meta_keywords %}{% endblock %}">
+    <meta name="description" content="{% spaceless %}{% block meta_description %}{% endblock %}{% endspaceless %}">
+    <meta property="fb:app_id" content="1478240312493246">
+    <meta property="fb:admins" content="100001002268598">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}{{ object.get_absolute_url }}" />
+    <meta property="og:title" content="{{ blog_post.title  }}" />
+
     <title>
-        {% block meta_title %}{% endblock %}
-        {% if settings.SITE_TITLE %}
-            | {{ settings.SITE_TITLE }}
-        {% endif %}
+        {% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}
     </title>
     <link rel="shortcut icon" href="{% static "img/favicon.ico" %}">
     {% comment %}
@@ -261,7 +263,14 @@
 {% endcomment %}
 
 <body>
-
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.9&appId=1478240312493246";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container-fluid">
