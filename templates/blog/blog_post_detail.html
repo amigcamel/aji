@@ -1,5 +1,5 @@
 {% extends "blog/blog_post_list.html" %}
-{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n disqus_tags %}
+{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n disqus_tags static %}
 
 {% block meta_title %}{{ blog_post.meta_title }}{% endblock %}
 
@@ -12,6 +12,16 @@
     {{ blog_post.description }}
     {% endmetablock %}
 {% endblock %}
+
+{% block extra_meta %}
+    <meta property="fb:app_id" content="1478240312493246">
+    <meta property="fb:admins" content="100001002268598">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}{{ object.get_absolute_url }}" />
+    <meta property="og:title" content="{{ blog_post.title  }}" />
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/logo800.jpg' %}" />
+    <meta property="og:description" content="{% spaceless %}{{ blog_post.description }}{% endspaceless %}" />
+    <meta property="og:type" content="website" />
+{% endblock extra_meta %}
 
 {% block title %}
     {% editable blog_post.title %}{{ blog_post.title }}{% endeditable %}
