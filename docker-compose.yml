@@ -1,8 +1,15 @@
 version: '3'
 
 services:
-    web:
+    app:
         restart: always
         build: .
         ports:
             - "8000:8000"
+    db:
+        restart: always
+        image: postgres:10.3-alpine
+        environment:
+            - POSTGRES_USER=amigcamel
+        volumes:
+            - ./data:/var/lib/postgresql/data
