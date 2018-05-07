@@ -1,3 +1,4 @@
+"""URL settings."""
 from __future__ import unicode_literals
 
 from django.conf.urls import include, url
@@ -6,7 +7,7 @@ from django.contrib import admin
 from django.views.i18n import set_language
 from django.views.generic import TemplateView
 
-from mezzanine.core.views import direct_to_template
+# from mezzanine.core.views import direct_to_template
 from mezzanine.conf import settings
 import mezzanine.blog.views
 
@@ -99,8 +100,12 @@ urlpatterns += [
 
     # ("^%s/" % settings.SITE_PREFIX, include("mezzanine.urls"))
     url(r'^contact', 'contact.views.contact', name='contact'),
-    url(r'^about', TemplateView.as_view(template_name="about.html"), name='about'),
-    url(r'^slide', TemplateView.as_view(template_name="slide.html"), name='slide'),
+    url(r'^about',
+        TemplateView.as_view(template_name="about.html"),
+        name='about'),
+    url(r'^slide',
+        TemplateView.as_view(template_name="slide.html"),
+        name='slide'),
 ]
 
 # Adds ``STATIC_URL`` to the context of error pages, so that error
