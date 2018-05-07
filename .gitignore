@@ -118,4 +118,4 @@ media
 
 # End of https://www.gitignore.io/api/vim,python,django
 
-static_all/*
+shared/*
