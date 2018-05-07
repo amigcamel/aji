@@ -1,3 +1,4 @@
+"""Handle email."""
 from email.mime.text import MIMEText
 import base64
 import httplib2
@@ -18,13 +19,14 @@ if not GMAIL_API:
 
 
 def get_credentials():
-    """Gets valid user credentials from storage.
+    """Get valid user credentials from storage.
 
     If nothing has been stored, or if the stored credentials are invalid,
     the OAuth2 flow is completed to obtain the new credentials.
 
     Returns:
         Credentials, the obtained credential.
+
     """
     home_dir = os.path.expanduser('~')
     credential_dir = os.path.join(home_dir, '.credentials')
