@@ -3,7 +3,10 @@ version: '3'
 services:
     app:
         restart: always
-        build: .
+        build:
+            context: .
+            args:
+                SECRET_KEY: $SECRET_KEY
         command: uwsgi --socket shared/aji.sock --wsgi-file aji/wsgi.py --chmod-socket=666
         volumes:
             - ./shared:/app/shared
