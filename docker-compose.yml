@@ -4,11 +4,10 @@ services:
     app:
         restart: always
         build: .
-        ports:
-            - "8000:8000"
         command: uwsgi --socket /tmp/aji/aji.sock --wsgi-file aji/wsgi.py --chmod-socket=666
         volumes:
             - /tmp/aji:/tmp/aji
+            - /tmp/aji/static_all:/app/static_all
     db:
         restart: always
         image: postgres:10.3-alpine
