@@ -7,9 +7,10 @@ services:
             context: .
             args:
                 SECRET_KEY: $SECRET_KEY
-                EMAIL_HOST_USER: $EMAIL_HOST_USER
-                EMAIL_HOST_PASSWORD: $EMAIL_HOST_PASSWORD
-        command: uwsgi --socket shared/aji.sock --wsgi-file aji/wsgi.py --chmod-socket=666
+        environment:
+            - SECRET_KEY=$SECRET_KEY
+            - EMAIL_HOST_USER=$EMAIL_HOST_USER
+            - EMAIL_HOST_PASSWORD=$EMAIL_HOST_PASSWORD
         volumes:
             - ./shared:/app/shared
     db:
@@ -18,4 +19,4 @@ services:
         environment:
             - POSTGRES_USER=amigcamel
         volumes:
-            - ./shared/data:/var/lib/postgresql/data
+            - /srv/aji/data:/var/lib/postgresql/data
